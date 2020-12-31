@@ -1,1 +1,14 @@
 videos/*
+
+# TeX-generated auxilary files
+*.out
+*.snm
+*.nav
+*.aux
+*.log
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+# Vim's backup files
+*.swp

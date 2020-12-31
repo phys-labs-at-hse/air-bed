@@ -14,6 +14,11 @@ Videos go in the following order:
 6.  2 g torque, no extra moment of inertia, small radius
 7.  3 g torque, no extra moment of inertia, small radius
 8.  4 g torque, no extra moment of inertia, small radius
+!probably there were also 4 following measurements for the big radius, check by reverse-engineering
+-   1 g torque, no extra moment of inertia, big radius
+-   2 g torque, no extra moment of inertia, big radius
+-   3 g torque, no extra moment of inertia, big radius
+-   4 g torque, no extra moment of inertia, big radius
 !probably moved the camera, check the cropped frame
 9.  4 g torque, small extra moment of inertia, farthest hole, big radius
 10. 4 g torque, middle extra moment of inertia, farthest hole, big radius
