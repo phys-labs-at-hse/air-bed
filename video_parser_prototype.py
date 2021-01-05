@@ -1,9 +1,16 @@
 import numpy as np
 import cv2
 import time
+import matplotlib.pyplot as plt
 
 vidcap = cv2.VideoCapture('videos/VID_20201127_135945.mp4')
+background = cv2.cvtColor(cv2.imread('figures/background.png'), cv2.COLOR_BGR2GRAY)
 curr_nframe = 0
+
+number_of_frames = int(vidcap.get(cv2.CAP_PROP_FRAME_COUNT))
+# Array of sums of squares or differences between current frame and the
+# backgound frame
+sums_of_squares = np.zeros(number_of_frames)
 
 while vidcap.isOpened():
     success, colored_frame = vidcap.read()
@@ -14,11 +21,12 @@ while vidcap.isOpened():
 
     frame = cv2.cvtColor(colored_frame, cv2.COLOR_BGR2GRAY)
 
-    if curr_nframe == 600:
-        cv2.imwrite('figures/background.png', frame)
+    # Convert image into monochrome
+    frame = cv2.cvtColor(colored_frame, cv2.COLOR_BGR2GRAY)
+    # Subtract the background image to see the rod (the major change)
+    frame = cv2.add(frame, cv2.bitwise_not(background))
 
-    x1, y1, x2, y2 = 280, 300, 285, 330
-    cv2.rectangle(colored_frame, (x1, y1), (x2, y2), (0, 0, 255), 2)
+    sums_of_squares[curr_nframe - 1] = np.sum((frame - background)**2)
 
     if cv2.waitKey(1) == ord(' '):  # pause
         time.sleep(0.5)
@@ -27,18 +35,7 @@ while vidcap.isOpened():
         print(curr_nframe)
         break
 
-    # Convert image into monochrome
-    frame = cv2.cvtColor(colored_frame, cv2.COLOR_BGR2GRAY)
-    # If pixel intensity is greater than 130, value set to 255, else set to 0.
-    frame = cv2.threshold(frame, 130, 255, cv2.THRESH_BINARY)[1]
-    # Invert colors so that notch pixels have maximal value.
-    frame = cv2.bitwise_not(frame)
-
-    #cv2.imshow('colored frames', colored_frame[100:600, 100:600])
-    #cv2.imshow('frames', frame[y1:y2, x1:x2])
-    if np.mean(frame[y1:y2, x1:x2]) > 164:
-        cv2.imshow('frames with notches', frame[100:600, 100:600])
-        time.sleep(1)
-
 vidcap.release()
 cv2.destroyAllWindows()
+
+plt.scatter(range(number_of_frames), sums_of_squares)
