@@ -8,7 +8,7 @@ curr_nframe = 0
 while vidcap.isOpened():
     success, colored_frame = vidcap.read()
     if not success:
-        print("Can't receive frame (stream end?). Exiting ...")
+        print("Can't receive frame (stream end?). Exiting.")
         break
     curr_nframe += 1  # starting from 1
 
@@ -17,19 +17,28 @@ while vidcap.isOpened():
     if curr_nframe == 600:
         cv2.imwrite('figures/background.png', frame)
 
-    x1, y1, x2, y2 = 270, 330, 280, 340
+    x1, y1, x2, y2 = 280, 300, 285, 330
     cv2.rectangle(colored_frame, (x1, y1), (x2, y2), (0, 0, 255), 2)
-    print(np.mean(frame[x1:x2, y2:y2]))
 
-    if cv2.waitKey(1) == ord(' '):
+    if cv2.waitKey(1) == ord(' '):  # pause
         time.sleep(0.5)
 
-    if cv2.waitKey(1) == ord('q'):
+    if cv2.waitKey(1) == ord('q'):  # quit
         print(curr_nframe)
         break
 
-    # cv2.imshow('B&W frames', frame)
-    cv2.imshow('colored frames', colored_frame)
+    # Convert image into monochrome
+    frame = cv2.cvtColor(colored_frame, cv2.COLOR_BGR2GRAY)
+    # If pixel intensity is greater than 130, value set to 255, else set to 0.
+    frame = cv2.threshold(frame, 130, 255, cv2.THRESH_BINARY)[1]
+    # Invert colors so that notch pixels have maximal value.
+    frame = cv2.bitwise_not(frame)
+
+    #cv2.imshow('colored frames', colored_frame[100:600, 100:600])
+    #cv2.imshow('frames', frame[y1:y2, x1:x2])
+    if np.mean(frame[y1:y2, x1:x2]) > 164:
+        cv2.imshow('frames with notches', frame[100:600, 100:600])
+        time.sleep(1)
 
 vidcap.release()
 cv2.destroyAllWindows()
