@@ -1,9 +1,13 @@
 import numpy as np
 import cv2
 import time
+import matplotlib.pyplot as plt
 
 vidcap = cv2.VideoCapture('videos/VID_20201127_135945.mp4')
 curr_nframe = 0
+
+angles = []
+nframes = []
 
 while vidcap.isOpened():
     success, colored_frame = vidcap.read()
@@ -34,11 +38,22 @@ while vidcap.isOpened():
     # Invert colors so that notch pixels have maximal value.
     frame = cv2.bitwise_not(frame)
 
-    #cv2.imshow('colored frames', colored_frame[100:600, 100:600])
-    #cv2.imshow('frames', frame[y1:y2, x1:x2])
-    if np.mean(frame[y1:y2, x1:x2]) > 164:
-        cv2.imshow('frames with notches', frame[100:600, 100:600])
-        time.sleep(1)
+    if np.mean(frame[y1:y2, x1:x2]) == 255:
+        cv2.imshow('frames with notches', colored_frame[100:600, 100:600])
+        manual_degree = input('> ')
+        try:
+            manual_degree = int(manual_degree)
+        except ValueError:  # notch was detected incorrectly
+            continue
+        angles.append(int(manual_degree))
+        nframes.append(curr_nframe)
+
+plt.scatter(nframes, angles)
+plt.savefig('figures/tmp_plot.png')
+with open('prototype_raw_data.csv', 'w') as file:
+    assert len(angles) == len(nframes)
+    for i in range(len(angles)):
+        file.write(f'{nframes[i]},{angles[i]}\n')
 
 vidcap.release()
 cv2.destroyAllWindows()
