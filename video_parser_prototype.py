@@ -3,11 +3,22 @@ import cv2
 import time
 import matplotlib.pyplot as plt
 
-vidcap = cv2.VideoCapture('videos/VID_20201127_135945.mp4')
+data_file_path = 'prototype_raw_data.csv'
+video_file_path = 'videos/VID_20201127_135945.mp4'
+
+# Notch rectangle coordinates
+x1, y1, x2, y2 = 280, 300, 285, 330
+
+vidcap = cv2.VideoCapture(video_file_path)
+fps = 30
 curr_nframe = 0
 
 angles = []
 nframes = []
+
+print('You will be prompted for which notch you see in the rectangle.\n'
+      'Type an integer. Anything else would mean the notch was detected\n'
+      'incorrectly.')
 
 while vidcap.isOpened():
     success, colored_frame = vidcap.read()
@@ -18,10 +29,6 @@ while vidcap.isOpened():
 
     frame = cv2.cvtColor(colored_frame, cv2.COLOR_BGR2GRAY)
 
-    if curr_nframe == 600:
-        cv2.imwrite('figures/background.png', frame)
-
-    x1, y1, x2, y2 = 280, 300, 285, 330
     cv2.rectangle(colored_frame, (x1, y1), (x2, y2), (0, 0, 255), 2)
 
     if cv2.waitKey(1) == ord(' '):  # pause
@@ -48,12 +55,10 @@ while vidcap.isOpened():
         angles.append(int(manual_degree))
         nframes.append(curr_nframe)
 
-plt.scatter(nframes, angles)
-plt.savefig('figures/tmp_plot.png')
-with open('prototype_raw_data.csv', 'w') as file:
-    assert len(angles) == len(nframes)
-    for i in range(len(angles)):
-        file.write(f'{nframes[i]},{angles[i]}\n')
+# Write the data to the csv file
+with open(data_file_path, 'w') as file:
+   for i in range(len(angles)):
+       file.write(f'{nframes[i]},{angles[i]}\n')
 
 vidcap.release()
 cv2.destroyAllWindows()
