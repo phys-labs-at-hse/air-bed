@@ -10,5 +10,6 @@ videos/*
 *.fls
 *.fdb_latexmk
 
-# Vim's backup files
-*.swp
+# Useless files that I want to keep
+minimal_video_player.py
+figures/tmp_plot.png
