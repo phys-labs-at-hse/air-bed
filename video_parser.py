@@ -3,8 +3,8 @@ import cv2
 import time
 import matplotlib.pyplot as plt
 
-data_file_path = 'csv_data/1.csv'
-video_file_path = 'videos/VID_20201127_135945.mp4'
+data_file_path = 'csv_data/2.csv'
+video_file_path = 'videos/VID_20201127_140332.mp4'
 # Notch rectangle coordinates
 x1, y1, x2, y2 = 280, 300, 285, 330
 
@@ -32,7 +32,7 @@ while vidcap.isOpened():
     # Convert image into monochrome
     frame = cv2.cvtColor(colored_frame, cv2.COLOR_BGR2GRAY)
     # If pixel intensity is greater than 130, value set to 255, else set to 0.
-    frame = cv2.threshold(frame, 130, 255, cv2.THRESH_BINARY)[1]
+    frame = cv2.threshold(frame, 150, 255, cv2.THRESH_BINARY)[1]
     # Invert colors so that notch pixels have maximal value.
     frame = cv2.bitwise_not(frame)
 
