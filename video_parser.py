@@ -3,8 +3,8 @@ import cv2
 import time
 import matplotlib.pyplot as plt
 
-data_file_path = 'csv_data/4.csv'
-video_file_path = 'videos/VID_20201127_141708.mp4'
+data_file_path = 'csv_data/5.csv'
+video_file_path = 'videos/VID_20201127_142641.mp4'
 # Notch rectangle coordinates
 x1, y1, x2, y2 = 280, 300, 285, 330
 
@@ -63,15 +63,18 @@ cv2.destroyAllWindows()
 # Count full turns, add 360 degrees for each one.
 # Assumes 1) the values strictly increase 2) no full turn was skipped.
 # Otherwise we're in trouble.
+#
+# In this vid it rotates backwards, so angles decrease.
+# So I change < to >, +360 to -360 and take absolute value in the map.
 turn = 0
 for i in range(1, len(angles)):
-    angles[i] += 360 * turn
-    if angles[i] < angles[i - 1]:
+    angles[i] -= 360 * turn
+    if angles[i] > angles[i - 1]:
         turn += 1
-        angles[i] += 360
+        angles[i] -= 360
 
 # Convert to physically true units
-angles = list(map(lambda angle: (angle - angles[0]) / 180 * np.pi, angles))
+angles = list(map(lambda angle: abs((angle - angles[0]) / 180 * np.pi), angles))
 times = list(map(lambda nframe: (nframe - nframes[0]) / fps, nframes))
 
 # Save the plot to temporary file to check the results visually
