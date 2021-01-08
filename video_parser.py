@@ -3,8 +3,8 @@ import cv2
 import time
 import matplotlib.pyplot as plt
 
-data_file_path = 'csv_data/12.csv'
-video_file_path = 'videos/VID_20201127_144601.mp4'
+data_file_path = 'csv_data/13.csv'
+video_file_path = 'videos/VID_20201127_145452.mp4'
 # Notch rectangle coordinates
 x1, y1, x2, y2 = 280, 440, 285, 480
 
