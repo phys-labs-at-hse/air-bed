@@ -3,8 +3,8 @@ import cv2
 import time
 import matplotlib.pyplot as plt
 
-data_file_path = 'csv_data/10.csv'
-video_file_path = 'videos/VID_20201127_144319.mp4'
+data_file_path = 'csv_data/11_1.csv'
+video_file_path = 'videos/VID_20201127_144435.mp4'
 # Notch rectangle coordinates
 x1, y1, x2, y2 = 280, 440, 285, 480
 
@@ -26,6 +26,11 @@ while vidcap.isOpened():
         print('Could not receive frame (stream end?). Exiting.')
         break
     curr_nframe += 1  # starting from 1
+
+    # Rotate the frame. This is due to opencv not reading video metadata.
+    # See https://github.com/opencv/opencv/issues/15499
+    # 2nd arg < 0 means "flip both horizontally and vertically"
+    colored_frame = cv2.flip(colored_frame, -1)
 
     frame = cv2.cvtColor(colored_frame, cv2.COLOR_BGR2GRAY)
     cv2.rectangle(colored_frame, (x1, y1), (x2, y2), (0, 0, 255), 2)
