@@ -3,8 +3,8 @@ import cv2
 import time
 import matplotlib.pyplot as plt
 
-data_file_path = 'csv_data/11_1.csv'
-video_file_path = 'videos/VID_20201127_144435.mp4'
+data_file_path = 'csv_data/12.csv'
+video_file_path = 'videos/VID_20201127_144601.mp4'
 # Notch rectangle coordinates
 x1, y1, x2, y2 = 280, 440, 285, 480
 
@@ -45,7 +45,7 @@ while vidcap.isOpened():
     if np.mean(frame[y1:y2, x1:x2]) == 255:
         cv2.imshow('frames with notches', colored_frame[100:600, 100:600])
 
-        manual_degree = input('> ')
+        manual_degree = input(f'frame {curr_nframe}> ')
         if manual_degree.count('drop') > 0 and angles and nframes:
             nframes.pop()
             angles.pop()
