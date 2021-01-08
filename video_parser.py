@@ -3,10 +3,10 @@ import cv2
 import time
 import matplotlib.pyplot as plt
 
-data_file_path = 'csv_data/14.csv'
-video_file_path = 'videos/VID_20201127_145738.mp4'
+data_file_path = 'csv_data/15.csv'
+video_file_path = 'videos/VID_20201127_150013.mp4'
 # Notch rectangle coordinates
-x1, y1, x2, y2 = 280, 440, 285, 480
+x1, y1, x2, y2 = 280, 485, 285, 520
 
 # I need to rotate this video
 vidcap = cv2.VideoCapture(video_file_path)
