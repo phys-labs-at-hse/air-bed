@@ -1,0 +1,89 @@
+\documentclass[a4paper, 12pt]{article}
+
+\usepackage[no-math]{fontspec-xetex}
+\setmainfont{IBM Plex Sans}
+\usepackage[english, russian]{babel}
+
+\usepackage{blindtext}
+\usepackage{microtype}
+\usepackage{geometry}
+
+\usepackage{amsmath, amsfonts, amssymb, amsthm, mathtools}
+\usepackage{MnSymbol}
+\usepackage{physics}
+
+\usepackage{graphicx, wrapfig, caption, subcaption}
+\usepackage{color, xcolor}
+
+\usepackage{titlesec}
+\usepackage[document]{ragged2e}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{import}
+
+\graphicspath{{figures/}}
+\geometry{margin=6em}
+\geometry{bottom=6em}
+
+% Настройки заголовков
+\titleformat{\section}[hang]{\Large}{}{0em}{}{}
+\titleformat{\subsection}[hang]{\large}{}{0em}{}{}
+
+% Настройки параграфов текста
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+\renewcommand{\baselinestretch}{1.1}
+
+% Настройки списков
+\setlist{leftmargin=*, noitemsep}
+
+% Настройки таблиц
+\setlength{\tabcolsep}{2em}
+\renewcommand{\arraystretch}{1.3}
+
+% Настройки ссылок
+\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue}
+
+\title{Вращение на водушной подушке}
+\author{Роман Ухоботов, Николай Грузинов}
+\date{собрано \today}
+
+\begin{document}
+\maketitle
+
+\section{Используемое оборудование}
+\begin{enumerate}
+\item грузы, из которых можно сделать грузы массами 1, 2, 3, 4 грамма;
+\item вращающаяся на воздушной подушке платформа;
+\item грузы для увеличения момента инерции (3 пары: маленькие, средние, большие)
+\item весы, штангенциркуль;
+\item камера телефона.
+\end{enumerate}
+
+\section{Цели и задачи}
+Цель: изучить, как ускоряется платформа в зависимости от того, какие грузы вешать (для увеличение её момента инерции или увеличения её силы).
+Задачи:
+\begin{enumerate}
+\item изучить торможение платформы при свободном вращении;
+\item проверить, является ли движение платформы равноускоренным;
+\item проверить простые соотношения между ускорением платформы, моментом силы, и моментом инерции.
+\end{enumerate}
+
+\section{Теоретическая модель}
+
+\subsection{Без трения}
+Если за нитку подвешен груз массы $m$, и нитка намотана на бобину радиуса $r$ на платформе, то, пренебрегая трением, можно записать:
+\[ I \beta = mgr .\]
+
+\subsection{Про трение}
+Разумно предположить, что если трение есть, то оно возникает из-за сопротивления воздуха.
+Малейшие касания платформы приводили к застреваниям, поэтому сухое трение мы бы сразу заметили.
+Тогда, в первом приближении, момент, создаваемый силой трения, должен быть пропорционален скорости платформы.
+
+\section{Методика измерений}
+Мы подвешивали груз определенной массы, и снимали вращение платформы на камеру.
+Из видео далее извлекалась зависимость угла поворота от времени, иногда не с самого начала вращения, по техническим причинам.
+
+\section{Результаты}
+\section{Выводы}
+\end{document}
