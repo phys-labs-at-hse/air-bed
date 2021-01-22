@@ -1,4 +1,7 @@
-videos/*
+videos/
+
+# Python-generated auxilary files
+__pycache__/
 
 # TeX-generated auxilary files
 *.out
@@ -12,4 +15,4 @@ videos/*
 
 # Useless files that I want to keep
 minimal_video_player.py
-figures/tmp_plot.png
+figures/tmp_plot*
